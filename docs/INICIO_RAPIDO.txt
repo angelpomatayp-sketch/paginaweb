@@ -1,0 +1,192 @@
+╔══════════════════════════════════════════════════════════════╗
+║          DYM SAC - GUÍA DE INICIO RÁPIDO                     ║
+╚══════════════════════════════════════════════════════════════╝
+
+¡Tu sitio web está listo! Aquí está todo lo que necesitas saber:
+
+📁 ARCHIVOS CREADOS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✓ index.html              - Página principal
+✓ styles.css              - Estilos con colores azul corporativo
+✓ script.js               - Funcionalidad interactiva
+✓ send_email.php          - Envío de emails (versión completa)
+✓ send_email_simple.php   - Envío de emails (versión simple)
+✓ .htaccess               - Configuración de Apache
+✓ config.example.php      - Ejemplo de configuración
+✓ README.md               - Documentación completa
+
+🌐 CÓMO VER TU SITIO:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Asegúrate de que XAMPP esté corriendo (Apache)
+2. Abre tu navegador
+3. Ve a: http://localhost/pag_dym/
+
+📧 CONFIGURAR EL FORMULARIO DE CONTACTO:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+OPCIÓN A - Versión Simple (Recomendada para empezar):
+────────────────────────────────────────────────────
+1. Edita index.html línea 327:
+   Cambia: action="send_email.php"
+   Por:    action="send_email_simple.php"
+
+2. Edita send_email_simple.php línea 12:
+   Cambia: $destinatario = 'contacto@dymsac.com';
+   Por:    $destinatario = 'TU-EMAIL-REAL@gmail.com';
+
+3. Configura XAMPP para enviar emails:
+
+   En Windows:
+   -----------
+   a) Edita C:\xampp\php\php.ini:
+      Busca [mail function] y configura:
+
+      SMTP = smtp.gmail.com
+      smtp_port = 587
+      sendmail_from = tu-email@gmail.com
+
+   b) Edita C:\xampp\sendmail\sendmail.ini:
+
+      smtp_server=smtp.gmail.com
+      smtp_port=587
+      auth_username=tu-email@gmail.com
+      auth_password=tu-contraseña-de-app
+      force_sender=tu-email@gmail.com
+
+   c) Para Gmail, crea una contraseña de aplicación:
+      - Ve a: https://myaccount.google.com/security
+      - Activa verificación en 2 pasos
+      - Crea contraseña de aplicación
+      - Úsala en sendmail.ini
+
+4. Reinicia Apache en XAMPP
+
+OPCIÓN B - Sin Configuración de Servidor:
+──────────────────────────────────────────
+Usa un servicio externo como Formspree:
+
+1. Ve a https://formspree.io/ y crea una cuenta
+2. Crea un nuevo formulario
+3. Copia tu Form ID
+4. Edita index.html línea 327:
+   Cambia: action="send_email.php"
+   Por:    action="https://formspree.io/f/TU-FORM-ID"
+
+✏️ PERSONALIZAR EL CONTENIDO:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Cambiar Textos:
+───────────────
+- Abre index.html con un editor de texto
+- Busca las secciones que quieras modificar
+- Guarda los cambios
+
+Cambiar Colores:
+────────────────
+- Abre styles.css
+- Al inicio encontrarás las variables de color:
+  --primary-color: #0066cc;     (Azul principal)
+  --primary-dark: #004c99;      (Azul oscuro)
+  --secondary-color: #0099ff;   (Azul claro)
+
+Cambiar Logo:
+─────────────
+- Reemplaza el archivo: logo_general-removebg-preview.png
+- Mantén el mismo nombre o actualiza en index.html
+
+Cambiar Datos de Contacto:
+──────────────────────────
+Busca y reemplaza en index.html:
+- Email: contacto@dymsac.com
+- Teléfono: +51 (64) 123-4567
+- Ubicación: Huancayo, Junín - Perú
+
+🎨 CARACTERÍSTICAS DEL SITIO:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✓ Diseño responsive (se adapta a móviles)
+✓ Colores azul corporativo profesional
+✓ Menú de navegación suave
+✓ Sección Hero con estadísticas
+✓ 6 servicios destacados
+✓ Sección Sobre Nosotros
+✓ Portfolio de proyectos
+✓ Formulario de contacto funcional
+✓ Footer con redes sociales
+✓ Animaciones suaves
+✓ Optimizado para SEO
+✓ Código limpio y comentado
+
+📱 SECCIONES INCLUIDAS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Inicio           - Hero con llamadas a la acción
+2. Servicios        - 6 servicios detallados
+3. Nosotros         - Información de la empresa
+4. Proyectos        - 3 casos de éxito
+5. Contacto         - Formulario funcional
+6. Footer           - Información y enlaces
+
+🔧 SOLUCIÓN DE PROBLEMAS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+El formulario no envía emails:
+──────────────────────────────
+→ Verifica la configuración de php.ini y sendmail.ini
+→ Revisa los logs en: C:\xampp\php\logs\php_error_log
+→ Prueba la versión simple: send_email_simple.php
+→ Considera usar Formspree como alternativa
+
+Los estilos no se ven:
+──────────────────────
+→ Limpia la caché del navegador (Ctrl + Shift + R)
+→ Verifica que todos los archivos estén en la misma carpeta
+→ Revisa la consola del navegador (F12)
+
+El menú móvil no funciona:
+──────────────────────────
+→ Asegúrate de que script.js esté cargando
+→ Revisa la consola del navegador (F12) por errores
+→ Verifica la conexión a internet (usa Google Fonts)
+
+📋 PRÓXIMOS PASOS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. ✓ Ver el sitio en localhost
+2. ⬜ Configurar el envío de emails
+3. ⬜ Personalizar textos e imágenes
+4. ⬜ Agregar proyectos reales
+5. ⬜ Probar en móviles y tablets
+6. ⬜ Comprar dominio (dymsac.com)
+7. ⬜ Contratar hosting con PHP
+8. ⬜ Instalar certificado SSL (HTTPS)
+9. ⬜ Configurar Google Analytics
+10. ⬜ Lanzar el sitio
+
+💡 CONSEJOS PROFESIONALES:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+→ Reemplaza los proyectos de ejemplo con casos reales
+→ Agrega testimonios de clientes satisfechos
+→ Actualiza el contenido regularmente
+→ Optimiza las imágenes antes de subirlas
+→ Haz backup regular de los archivos
+→ Mantén el sitio actualizado con noticias
+
+📞 INFORMACIÓN DE CONTACTO ACTUAL:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Empresa:   DYM SAC
+Email:     contacto@dymsac.com
+Teléfono:  +51 (64) 123-4567
+Ubicación: Huancayo, Junín - Perú
+Colores:   Azul corporativo (#0066cc)
+
+📚 MÁS INFORMACIÓN:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Lee el archivo README.md para información detallada sobre:
+- Estructura completa del proyecto
+- Configuración avanzada
+- Personalización profunda
+- Mejores prácticas
+- Alternativas de hosting
+
+╔══════════════════════════════════════════════════════════════╗
+║  ¡Tu sitio web profesional está listo para usar!            ║
+║  Cualquier duda, revisa el README.md                        ║
+╚══════════════════════════════════════════════════════════════╝
