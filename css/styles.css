@@ -6,18 +6,18 @@
 }
 
 :root {
-    --primary-color: #2868b0;
-    --primary-dark: #1f5491;
-    --secondary-color: #0890c8;
-    --accent-color: #32a9d6;
+    --primary-color: #F7931E;
+    --primary-dark: #D4780A;
+    --secondary-color: #D4A84B;
+    --accent-color: #F5A623;
     --ink: #0f172a;
     --text-dark: #0f172a;
-    --text-light: #546274;
-    --bg-light: #f4f8fc;
+    --text-light: #5C6670;
+    --bg-light: #f9f7f4;
     --bg-white: #ffffff;
-    --border-color: #e1e8f0;
-    --gradient: linear-gradient(135deg, #2868b0 0%, #0890c8 100%);
-    --gradient-soft: linear-gradient(135deg, rgba(40, 104, 176, 0.12) 0%, rgba(8, 144, 200, 0.12) 100%);
+    --border-color: #e8e4dc;
+    --gradient: linear-gradient(135deg, #F7931E 0%, #D4A84B 100%);
+    --gradient-soft: linear-gradient(135deg, rgba(247, 147, 30, 0.12) 0%, rgba(212, 168, 75, 0.12) 100%);
     --shadow-sm: 0 1px 2px 0 rgba(15, 23, 42, 0.08);
     --shadow-md: 0 10px 24px -12px rgba(15, 23, 42, 0.35);
     --shadow-lg: 0 18px 46px -18px rgba(15, 23, 42, 0.4);
@@ -33,9 +33,9 @@ body {
     color: var(--text-dark);
     line-height: 1.6;
     overflow-x: hidden;
-    background: radial-gradient(circle at 10% 10%, rgba(40, 104, 176, 0.12), transparent 45%),
-                radial-gradient(circle at 80% 85%, rgba(8, 144, 200, 0.1), transparent 50%),
-                #f5f8fb;
+    background: radial-gradient(circle at 10% 10%, rgba(247, 147, 30, 0.08), transparent 45%),
+                radial-gradient(circle at 80% 85%, rgba(212, 168, 75, 0.08), transparent 50%),
+                #faf9f7;
 }
 
 body.preloader-active {
@@ -91,9 +91,9 @@ body.preloader-active .page-content {
 }
 
 body.dark-mode .theme-toggle {
-    background: rgba(8, 144, 200, 0.2);
+    background: rgba(247, 147, 30, 0.2);
     color: #e2e8f0;
-    border-color: rgba(56, 189, 248, 0.5);
+    border-color: rgba(212, 168, 75, 0.5);
 }
 
 body.dark-mode .theme-toggle .icon-moon {
@@ -108,9 +108,9 @@ body.dark-mode .theme-toggle .icon-sun {
     position: fixed;
     inset: 0;
     z-index: 20000;
-    background: radial-gradient(circle at 20% 20%, rgba(40, 104, 176, 0.2), transparent 45%),
-                radial-gradient(circle at 80% 80%, rgba(8, 144, 200, 0.18), transparent 45%),
-                #0b1220;
+    background: radial-gradient(circle at 20% 20%, rgba(247, 147, 30, 0.15), transparent 45%),
+                radial-gradient(circle at 80% 80%, rgba(212, 168, 75, 0.12), transparent 45%),
+                #1a1814;
     display: grid;
     place-items: center;
     color: #e2e8f0;
@@ -165,7 +165,7 @@ body.dark-mode .theme-toggle .icon-sun {
     margin: 0;
     font-family: 'DM Sans', monospace;
     font-size: 0.95rem;
-    color: rgba(56, 189, 248, 0.55);
+    color: rgba(247, 147, 30, 0.55);
     white-space: pre-wrap;
     line-height: 1.2;
     letter-spacing: 0.02em;
@@ -174,7 +174,7 @@ body.dark-mode .theme-toggle .icon-sun {
 }
 
 .binary-text.alt {
-    color: rgba(40, 104, 176, 0.55);
+    color: rgba(212, 168, 75, 0.55);
     animation-duration: 5s;
     animation-direction: reverse;
     opacity: 0.8;
@@ -188,15 +188,15 @@ body.dark-mode .theme-toggle .icon-sun {
     display: grid;
     place-items: center;
     border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, rgba(56, 189, 248, 0.15), transparent 60%);
-    box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.15);
+    background: radial-gradient(circle at 30% 30%, rgba(247, 147, 30, 0.15), transparent 60%);
+    box-shadow: inset 0 0 0 1px rgba(212, 168, 75, 0.25);
 }
 
 .logo-assemble img {
     width: 80%;
     max-width: 260px;
     height: auto;
-    filter: drop-shadow(0 12px 24px rgba(56, 189, 248, 0.35));
+    filter: drop-shadow(0 12px 24px rgba(247, 147, 30, 0.35));
     opacity: 0;
     transform: scale(0.9);
     animation: logoReveal 1.6s ease forwards 0.6s;
@@ -207,7 +207,7 @@ body.dark-mode .theme-toggle .icon-sun {
     left: 0;
     right: 0;
     height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.8), transparent);
+    background: linear-gradient(90deg, transparent, rgba(247, 147, 30, 0.8), transparent);
     animation: scan 1.4s ease-in-out infinite;
     opacity: 0.8;
 }
@@ -416,7 +416,7 @@ body.dark-mode .theme-toggle .icon-sun {
 .social-links a:focus-visible,
 .theme-toggle:focus-visible,
 .whatsapp-float:focus-visible {
-    outline: 2px solid rgba(40, 104, 176, 0.6);
+    outline: 2px solid rgba(247, 147, 30, 0.6);
     outline-offset: 3px;
 }
 
@@ -446,8 +446,8 @@ body.dark-mode .theme-toggle .icon-sun {
     align-items: center;
     padding-top: 58px;
     overflow: hidden;
-    background: radial-gradient(circle at 25% 20%, rgba(40, 104, 176, 0.12), transparent 45%),
-                radial-gradient(circle at 75% 25%, rgba(8, 144, 200, 0.1), transparent 45%);
+    background: radial-gradient(circle at 25% 20%, rgba(247, 147, 30, 0.1), transparent 45%),
+                radial-gradient(circle at 75% 25%, rgba(212, 168, 75, 0.08), transparent 45%);
 }
 
 .hero-background {
@@ -523,7 +523,7 @@ body.dark-mode .theme-toggle .icon-sun {
     font-weight: 700;
     letter-spacing: 0.15em;
     color: var(--primary-color);
-    background: rgba(0, 102, 204, 0.1);
+    background: rgba(247, 147, 30, 0.12);
     padding: 0.625rem 1.25rem;
     border-radius: 50px;
     margin-bottom: 1.5rem;
@@ -634,7 +634,7 @@ body.dark-mode .theme-toggle .icon-sun {
 .section-tag {
     display: inline-block;
     padding: 0.5rem 1rem;
-    background: rgba(0, 102, 204, 0.1);
+    background: rgba(247, 147, 30, 0.12);
     color: var(--primary-color);
     border-radius: 50px;
     font-size: 0.875rem;
@@ -684,7 +684,7 @@ body.dark-mode .theme-toggle .icon-sun {
 .service-icon {
     width: 60px;
     height: 60px;
-    background: linear-gradient(135deg, #2868b0 0%, #0890c8 100%);
+    background: linear-gradient(135deg, #F7931E 0%, #D4A84B 100%);
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -850,7 +850,7 @@ body.dark-mode .theme-toggle .icon-sun {
 
 .project-image {
     height: 250px;
-    background: linear-gradient(135deg, #2868b0 0%, #0890c8 55%, #67d2ee 100%);
+    background: linear-gradient(135deg, #F7931E 0%, #D4A84B 55%, #E8C97A 100%);
     position: relative;
     overflow: hidden;
     display: flex;
@@ -904,7 +904,7 @@ body.dark-mode .theme-toggle .icon-sun {
 }
 
 .project-tags span {
-    background: rgba(40, 104, 176, 0.12);
+    background: rgba(247, 147, 30, 0.12);
     color: var(--primary-color);
     padding: 0.25rem 0.75rem;
     border-radius: 50px;
@@ -952,7 +952,7 @@ body.dark-mode .theme-toggle .icon-sun {
     height: 48px;
     color: var(--primary-color);
     padding: 12px;
-    background: rgba(40, 104, 176, 0.12);
+    background: rgba(247, 147, 30, 0.12);
     border-radius: 12px;
     flex-shrink: 0;
 }
@@ -1006,7 +1006,7 @@ body.dark-mode .theme-toggle .icon-sun {
 .form-group textarea:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(40, 104, 176, 0.15);
+    box-shadow: 0 0 0 3px rgba(247, 147, 30, 0.15);
 }
 
 .form-group textarea {
@@ -1340,9 +1340,9 @@ body.dark-mode .theme-toggle .icon-sun {
 
 /* Dark theme */
 body.dark-mode {
-    background: radial-gradient(circle at 20% 20%, rgba(40, 104, 176, 0.2), transparent 45%),
-                radial-gradient(circle at 80% 80%, rgba(8, 144, 200, 0.2), transparent 50%),
-                #0b1220;
+    background: radial-gradient(circle at 20% 20%, rgba(247, 147, 30, 0.15), transparent 45%),
+                radial-gradient(circle at 80% 80%, rgba(212, 168, 75, 0.12), transparent 50%),
+                #1a1814;
     color: #e2e8f0;
 }
 
@@ -1361,14 +1361,14 @@ body.dark-mode .nav-menu a:hover {
 }
 
 body.dark-mode .hero {
-    background: radial-gradient(circle at 25% 20%, rgba(40, 104, 176, 0.18), transparent 45%),
-                radial-gradient(circle at 75% 25%, rgba(8, 144, 200, 0.15), transparent 45%);
+    background: radial-gradient(circle at 25% 20%, rgba(247, 147, 30, 0.15), transparent 45%),
+                radial-gradient(circle at 75% 25%, rgba(212, 168, 75, 0.12), transparent 45%);
 }
 
 body.dark-mode .services,
 body.dark-mode .projects {
-    background: radial-gradient(circle at 15% 15%, rgba(40, 104, 176, 0.08), transparent 45%),
-                #0b1220;
+    background: radial-gradient(circle at 15% 15%, rgba(247, 147, 30, 0.08), transparent 45%),
+                #1a1814;
 }
 
 body.dark-mode .service-card,
@@ -1408,7 +1408,7 @@ body.dark-mode .project-category {
 }
 
 body.dark-mode .project-tags span {
-    background: rgba(56, 189, 248, 0.18);
+    background: rgba(247, 147, 30, 0.18);
     color: #e2e8f0;
 }
 
@@ -1432,7 +1432,7 @@ body.dark-mode .btn-secondary {
 }
 
 body.dark-mode .btn-secondary:hover {
-    background: rgba(56, 189, 248, 0.2);
+    background: rgba(247, 147, 30, 0.2);
     color: #e2e8f0;
 }
 
@@ -1695,7 +1695,7 @@ body.dark-mode .footer-links a:hover {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(120deg, rgba(11, 18, 32, 0.9), rgba(8, 144, 200, 0.2));
+    background: linear-gradient(120deg, rgba(26, 24, 20, 0.9), rgba(247, 147, 30, 0.2));
     transform: translateX(-100%);
     transition: transform 0.7s ease;
     pointer-events: none;
