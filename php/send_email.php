@@ -45,7 +45,7 @@ if (!empty($telefono) && !preg_match('/^[0-9+()\s-]{7,25}$/', $telefono)) {
     $errores[] = 'El teléfono no tiene un formato válido';
 }
 
-if (!in_array($servicio, ['', 'web', 'mobile', 'cloud', 'ai', 'consulting', 'security'], true)) {
+if (!in_array($servicio, ['', 'enterprise', 'logistics', 'commercial', 'interactive', 'signage', 'automation', 'web', 'mobile', 'cloud', 'ai', 'consulting', 'security'], true)) {
     $errores[] = 'El servicio seleccionado no es válido';
 }
 
@@ -86,6 +86,12 @@ file_put_contents($rate_file, json_encode($attempts), LOCK_EX);
 
 // Preparar el asunto
 $servicios = [
+    'enterprise' => 'Software empresarial a medida',
+    'logistics' => 'Inventarios, logística y compras',
+    'commercial' => 'CRM, ventas y atención',
+    'interactive' => 'Tótems y experiencias interactivas',
+    'signage' => 'Cartelería digital y monitoreo',
+    'automation' => 'Datos, automatización e IA',
     'web' => 'Desarrollo Web',
     'mobile' => 'Aplicaciones Móviles',
     'cloud' => 'Soluciones Cloud',

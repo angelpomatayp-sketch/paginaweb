@@ -74,6 +74,12 @@ module.exports = async function contactHandler(request, response) {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phonePattern = /^[0-9+()\s-]{7,25}$/;
     const services = {
+        enterprise: 'Software empresarial a medida',
+        logistics: 'Inventarios, logística y compras',
+        commercial: 'CRM, ventas y atención',
+        interactive: 'Tótems y experiencias interactivas',
+        signage: 'Cartelería digital y monitoreo',
+        automation: 'Datos, automatización e IA',
         web: 'Desarrollo Web',
         mobile: 'Aplicaciones Móviles',
         cloud: 'Soluciones Cloud',

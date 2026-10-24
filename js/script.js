@@ -1,44 +1,28 @@
-// Animated Logo Tagline
-const logoTagline = document.querySelector('.logo-tagline');
-if (logoTagline) {
-    const text = logoTagline.textContent;
-    logoTagline.innerHTML = '';
-
-    const chars = text.split('');
-    chars.forEach((char, index) => {
-        const span = document.createElement('span');
-        span.textContent = char;
-        span.style.animationDelay = `${index * 0.08}s`;
-        span.style.animationIterationCount = 'infinite';
-        span.style.animationDuration = `${chars.length * 0.08 + 3}s`;
-        logoTagline.appendChild(span);
-    });
-}
-
 // Preloader
 const preloader = document.getElementById('preloader');
 if (preloader) {
-    document.body.classList.add('preloader-active');
-    window.addEventListener('load', () => {
-        const minimumDisplay = 500;
+    const preloaderStartedAt = performance.now();
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const hidePreloader = () => {
+        const minimumDisplay = reduceMotion ? 100 : 900;
+        const elapsed = performance.now() - preloaderStartedAt;
+        const remaining = Math.max(0, minimumDisplay - elapsed);
+
         setTimeout(() => {
             preloader.classList.add('hide');
+            preloader.setAttribute('aria-hidden', 'true');
             document.body.classList.remove('preloader-active');
             document.body.classList.add('page-ready');
-        }, minimumDisplay);
-    });
-}
+            setTimeout(() => preloader.remove(), 240);
+        }, remaining);
+    };
 
-// Binary logo fill
-const binaryTextBlocks = document.querySelectorAll('.binary-text');
-if (binaryTextBlocks.length) {
-    const lines = 80;
-    const lineLength = 120;
-    const buildLine = () => Array.from({ length: lineLength }, () => (Math.random() > 0.5 ? '1' : '0')).join('');
-    const buildBlock = () => Array.from({ length: lines }, buildLine).join('\n');
-    binaryTextBlocks.forEach(block => {
-        block.textContent = buildBlock();
-    });
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', hidePreloader, { once: true });
+    } else {
+        hidePreloader();
+    }
 }
 
 // Theme toggle
@@ -240,6 +224,287 @@ function showMessage(message, type) {
     }, 5000);
 }
 
+// Catálogo de proyectos: comunica la solución y la necesidad sin identificar clientes.
+const projects = [
+    {
+        title: 'Logística e Inventario Minero',
+        category: 'logistics',
+        type: 'Logística y compras',
+        sector: 'Minería',
+        need: 'Controlar stock, compras y entregas en operaciones con múltiples almacenes.',
+        solution: 'Centraliza kardex valorizado, requisiciones, órdenes de compra, EPP, préstamos y reportes.',
+        tags: ['Laravel', 'React', 'MySQL'],
+        image: 'img/projects/logistica_minero.png',
+        icon: 'inventory'
+    },
+    {
+        title: 'Gestión de Entregas Vehiculares',
+        category: 'commercial',
+        type: 'Ventas y atención',
+        sector: 'Automotriz',
+        need: 'Coordinar entregas, asesores y turnos de atención en diferentes puntos de operación.',
+        solution: 'Organiza la cola de entrega, muestra turnos en pantalla y conserva el historial de atención.',
+        tags: ['PHP', 'MySQL', 'Responsive'],
+        image: 'img/projects/entregas_vehiculares.png',
+        icon: 'commercial'
+    },
+    {
+        title: 'Gestión de Compras y Servicios',
+        category: 'logistics',
+        type: 'Logística y compras',
+        sector: 'Empresarial',
+        need: 'Dar trazabilidad a solicitudes, compras, servicios y aprobaciones entre distintas áreas.',
+        solution: 'Conecta requerimientos, cotizaciones, órdenes y validaciones de logística, contabilidad y finanzas.',
+        tags: ['Next.js', 'TypeScript', 'Prisma'],
+        image: 'img/projects/gestion_compras.png',
+        icon: 'procurement'
+    },
+    {
+        title: 'Gestión de Salud Preventiva',
+        category: 'sectoral',
+        type: 'Sistema sectorial',
+        sector: 'Salud',
+        need: 'Organizar citas, historias, controles y seguimiento preventivo de pacientes.',
+        solution: 'Integra perfiles, agenda, controles clínicos, reportes y trazabilidad de atenciones.',
+        tags: ['PHP', 'MariaDB', 'PWA'],
+        image: 'img/projects/gestion_salud.png',
+        icon: 'health'
+    },
+    {
+        title: 'Gestión Académica',
+        category: 'sectoral',
+        type: 'Sistema sectorial',
+        sector: 'Educación',
+        need: 'Centralizar estudiantes, matrículas, asistencia, calificaciones y horarios.',
+        solution: 'Ofrece módulos por rol, seguimiento académico y reportes para la gestión educativa.',
+        tags: ['React', 'Node.js', 'MongoDB'],
+        image: 'img/projects/gestion_academica.png',
+        icon: 'education'
+    },
+    {
+        title: 'Trivia Interactiva para Tótems',
+        category: 'interactive',
+        type: 'Tótems y pantallas',
+        sector: 'Eventos',
+        need: 'Aumentar la participación del público mediante una experiencia breve y medible.',
+        solution: 'Combina preguntas táctiles, registro de participantes, premios y exportación de resultados.',
+        tags: ['Electron', 'React', 'SQLite'],
+        image: 'img/projects/totems_interactivos.png',
+        icon: 'interactive'
+    },
+    {
+        title: 'Gestión Hotelera',
+        category: 'business',
+        type: 'Gestión empresarial',
+        sector: 'Hotelería',
+        need: 'Administrar reservas, habitaciones y atención diaria desde un solo lugar.',
+        solution: 'Integra disponibilidad, check-in, check-out, consumos, facturación y reportes.',
+        tags: ['Vue.js', 'PHP', 'MySQL'],
+        icon: 'business'
+    },
+    {
+        title: 'POS Multi-Tenant',
+        category: 'commercial',
+        type: 'Ventas y atención',
+        sector: 'Comercio',
+        need: 'Gestionar ventas, caja e inventario de varios negocios sin mezclar su información.',
+        solution: 'Separa tiendas, usuarios y datos por organización, con control de suscripciones y reportes.',
+        tags: ['PHP', 'MySQL', 'Docker'],
+        icon: 'commercial'
+    },
+    {
+        title: 'Control de Activos por Serie',
+        category: 'logistics',
+        type: 'Logística y compras',
+        sector: 'Tecnología',
+        need: 'Conocer la ubicación y el estado de cada equipo durante todo su ciclo de vida.',
+        solution: 'Registra series, asignaciones, préstamos, devoluciones, mantenimiento y bajas.',
+        tags: ['Laravel', 'React', 'MySQL'],
+        icon: 'inventory'
+    },
+    {
+        title: 'CRM Comercial',
+        category: 'commercial',
+        type: 'Ventas y atención',
+        sector: 'Ventas',
+        need: 'Evitar oportunidades dispersas y mejorar el seguimiento de cada prospecto.',
+        solution: 'Centraliza contactos, cotizaciones, pedidos, actividades y avance del embudo comercial.',
+        tags: ['React', 'Node.js', 'MySQL'],
+        icon: 'commercial'
+    },
+    {
+        title: 'Gestión de Planillas',
+        category: 'business',
+        type: 'Gestión empresarial',
+        sector: 'Recursos humanos',
+        need: 'Reducir errores y tiempo en cálculos laborales, permisos y consolidación de información.',
+        solution: 'Automatiza conceptos de planilla, incidencias, permisos y reportes por periodo.',
+        tags: ['Laravel', 'React', 'PostgreSQL'],
+        icon: 'business'
+    },
+    {
+        title: 'Gestión de Servicios Recurrentes',
+        category: 'business',
+        type: 'Gestión empresarial',
+        sector: 'Servicios',
+        need: 'Controlar clientes, ciclos mensuales, pagos pendientes y continuidad del servicio.',
+        solution: 'Administra contratos, periodos, estados de pago, alertas y tableros de seguimiento.',
+        tags: ['Laravel', 'MySQL', 'Dashboard'],
+        icon: 'business'
+    },
+    {
+        title: 'Gestor de Contenidos para Tótems',
+        category: 'interactive',
+        type: 'Tótems y pantallas',
+        sector: 'Retail',
+        need: 'Actualizar contenido en equipos remotos y mantener la experiencia aun sin conexión.',
+        solution: 'Gestiona listas de reproducción, sincronización, modo offline y apertura segura de experiencias.',
+        tags: ['Laravel', 'Electron', 'API'],
+        icon: 'interactive'
+    },
+    {
+        title: 'Tótem Fotográfico Interactivo',
+        category: 'interactive',
+        type: 'Tótems y pantallas',
+        sector: 'Institucional',
+        need: 'Crear una activación visual que atraiga visitantes y facilite compartir el resultado.',
+        solution: 'Integra captura, composición gráfica, fondos configurables, QR y panel de administración.',
+        tags: ['Electron', 'React', 'TypeScript'],
+        icon: 'interactive'
+    },
+    {
+        title: 'Gestión de Locales y Pantallas',
+        category: 'interactive',
+        type: 'Tótems y pantallas',
+        sector: 'Retail',
+        need: 'Visualizar dónde opera cada pantalla y conocer rápidamente su disponibilidad.',
+        solution: 'Relaciona locales, mapas, dispositivos, contenidos y estados en un tablero central.',
+        tags: ['Laravel', 'React', 'Leaflet'],
+        icon: 'interactive'
+    },
+    {
+        title: 'Plataforma de Experiencia Automotriz',
+        category: 'sectoral',
+        type: 'Sistema sectorial',
+        sector: 'Automotriz',
+        need: 'Unificar el registro de visitantes y medir su experiencia en diferentes puntos de atención.',
+        solution: 'Conecta formularios, ubicaciones, encuestas, indicadores y reportes de servicio.',
+        tags: ['CodeIgniter', 'MySQL', 'API'],
+        icon: 'sectoral'
+    },
+    {
+        title: 'Gestión Inteligente de Cartelería',
+        category: 'interactive',
+        type: 'Tótems y pantallas',
+        sector: 'Cartelería digital',
+        need: 'Programar contenidos y supervisar numerosas pantallas desde una operación centralizada.',
+        solution: 'Controla equipos, listas, horarios, alertas e incorpora asistencia para organizar campañas.',
+        tags: ['PostgreSQL', 'Dashboard', 'IA'],
+        icon: 'interactive'
+    },
+    {
+        title: 'Marketplace con Trazabilidad',
+        category: 'commercial',
+        type: 'Ventas y atención',
+        sector: 'Comercio',
+        need: 'Conectar oferta y demanda conservando información clara sobre el origen de los productos.',
+        solution: 'Gestiona productores, catálogo, pedidos y trazabilidad dentro de una experiencia de compra.',
+        tags: ['Node.js', 'Express', 'Prisma'],
+        icon: 'commercial'
+    },
+    {
+        title: 'ERP para Operaciones Mineras',
+        category: 'business',
+        type: 'Gestión empresarial',
+        sector: 'Minería',
+        need: 'Evitar información aislada entre operación, logística, finanzas y administración.',
+        solution: 'Integra procesos y datos clave en módulos conectados con roles, controles e indicadores.',
+        tags: ['Laravel', 'React', 'Inertia'],
+        icon: 'business'
+    }
+];
+
+const projectIcons = {
+    inventory: '<path d="M4 7h16M5 7l1 13h12l1-13M9 11v5m6-5v5M8 4h8l1 3H7l1-3Z"/>',
+    procurement: '<path d="M6 3h12v18H6zM9 8h6m-6 4h6m-6 4h4"/>',
+    commercial: '<path d="M4 5h16v12H4zM8 21h8M12 17v4M8 9h3m-3 4h8"/>',
+    health: '<path d="M12 21S4 16.5 4 10a4 4 0 0 1 7-2.6A4 4 0 0 1 18 10c0 6.5-6 11-6 11Zm0-10v5m-2.5-2.5h5"/>',
+    education: '<path d="m3 9 9-5 9 5-9 5-9-5Zm4 2.5V17c3 2 7 2 10 0v-5.5M21 9v6"/>',
+    interactive: '<path d="M5 3h14v14H5zM9 21h6m-3-4v4M9 7h6v6H9z"/>',
+    business: '<path d="M4 21V7h6v14m0-18h10v18M7 11h1m-1 4h1m6-8h2m-2 4h2m-2 4h2"/>',
+    sectoral: '<path d="M4 20h16M6 20V8l6-4 6 4v12M9 11h2m2 0h2m-6 4h2m2 0h2"/>'
+};
+
+const projectsGrid = document.getElementById('projectsGrid');
+const projectFilterButtons = document.querySelectorAll('.project-filter');
+const showAllProjectsButton = document.getElementById('showAllProjects');
+const projectsResultCount = document.getElementById('projectsResultCount');
+const initialProjectLimit = 6;
+let activeProjectFilter = 'all';
+let showEveryProject = false;
+
+const createProjectCard = (project) => `
+    <article class="project-card">
+        <div class="project-image">
+            ${project.image
+                ? `<img class="project-cover" src="${project.image}" alt="Representación visual de ${project.title}" loading="lazy" decoding="async">`
+                : `<svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    ${projectIcons[project.icon] || projectIcons.business}
+                </svg>`}
+            <div class="project-overlay"><span class="project-category">${project.sector}</span></div>
+        </div>
+        <div class="project-content">
+            <p class="project-type">${project.type}</p>
+            <h3>${project.title}</h3>
+            <p class="project-need"><strong>Necesidad:</strong> ${project.need}</p>
+            <p class="project-solution"><strong>Solución:</strong> ${project.solution}</p>
+            <div class="project-tags" aria-label="Tecnologías utilizadas">
+                ${project.tags.map(tag => `<span>${tag}</span>`).join('')}
+            </div>
+        </div>
+    </article>
+`;
+
+function renderProjects() {
+    if (!projectsGrid) return;
+
+    const filteredProjects = activeProjectFilter === 'all'
+        ? projects
+        : projects.filter(project => project.category === activeProjectFilter);
+    const visibleProjects = showEveryProject
+        ? filteredProjects
+        : filteredProjects.slice(0, initialProjectLimit);
+
+    projectsGrid.innerHTML = visibleProjects.map(createProjectCard).join('');
+    if (projectsResultCount) {
+        projectsResultCount.textContent = `${filteredProjects.length} proyectos encontrados. ${visibleProjects.length} visibles.`;
+    }
+
+    if (showAllProjectsButton) {
+        showAllProjectsButton.hidden = filteredProjects.length <= initialProjectLimit || showEveryProject;
+    }
+}
+
+projectFilterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        activeProjectFilter = button.dataset.filter || 'all';
+        showEveryProject = false;
+        projectFilterButtons.forEach(filterButton => {
+            const isActive = filterButton === button;
+            filterButton.classList.toggle('active', isActive);
+            filterButton.setAttribute('aria-pressed', String(isActive));
+        });
+        renderProjects();
+    });
+});
+
+showAllProjectsButton?.addEventListener('click', () => {
+    showEveryProject = true;
+    renderProjects();
+});
+
+renderProjects();
+
 // Intersection Observer for scroll animations
 
 // Section reveal transitions
@@ -249,16 +514,15 @@ const revealObserver = new IntersectionObserver((entries) => {
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
                     entry.target.classList.add('is-visible');
+                    revealObserver.unobserve(entry.target);
                 });
             });
-        } else {
-            entry.target.classList.remove('is-visible');
         }
     });
 }, { threshold: 0.15, rootMargin: '0px 0px -120px 0px' });
 
 const revealTargets = document.querySelectorAll(
-    '.reveal, .reveal-slide-left, .reveal-slide-right, .reveal-scale, .reveal-wipe, .section-header, .hero-content, .about-text, .about-image, .contact-info, .contact-form, .footer-content, .footer-bottom'
+    '.reveal, .reveal-slide-left, .reveal-slide-right, .reveal-scale, .reveal-wipe, .section-header, .hero-content, .about-text, .about-image, .project-card, .contact-info, .contact-form, .footer-content, .footer-bottom'
 );
 
 revealTargets.forEach(el => {
@@ -376,178 +640,112 @@ let lastFocusedElement = null;
 
 // Contenido de los modales para cada servicio
 const serviceContent = {
-    web: {
-        title: 'Desarrollo Web',
-        subtitle: 'Creamos aplicaciones web modernas, escalables y adaptadas a tus necesidades',
-        description: 'Desarrollamos soluciones web personalizadas que se ajustan perfectamente a tu negocio. Desde sistemas de gestión empresarial hasta plataformas de comercio electrónico.',
+    enterprise: {
+        title: 'Software empresarial a medida',
+        subtitle: 'Sistemas alineados con la forma real en que trabaja tu organización',
+        description: 'Diseñamos plataformas que centralizan procesos, usuarios e información para reducir tareas manuales y mejorar el control de la operación.',
         features: [
-            {
-                title: 'Desarrollo Frontend',
-                description: 'Interfaces de usuario modernas y responsive utilizando React, Vue.js, Angular y las últimas tecnologías web.'
-            },
-            {
-                title: 'Desarrollo Backend',
-                description: 'APIs robustas y escalables con Node.js, Python (Django/Flask), PHP (Laravel), y bases de datos SQL/NoSQL.'
-            },
-            {
-                title: 'Diseño Responsive',
-                description: 'Aplicaciones que funcionan perfectamente en cualquier dispositivo: desktop, tablet y móvil.'
-            }
+            { title: 'Procesos a medida', description: 'Modelamos flujos, reglas y módulos según las necesidades concretas de cada operación.' },
+            { title: 'Roles y trazabilidad', description: 'Definimos permisos, responsables e historial de cambios para trabajar con mayor seguridad.' },
+            { title: 'Indicadores y reportes', description: 'Convertimos los datos diarios en consultas, exportaciones y tableros útiles para decidir.' }
         ],
         solutions: [
-            'Sistemas de gestión para hoteles (reservas, check-in/out, facturación)',
-            'Software para control de inventarios en bodegas',
-            'Plataformas administrativas para ferreterías',
-            'E-commerce y tiendas virtuales',
-            'Sistemas de gestión empresarial (ERP)',
-            'Portales web corporativos',
-            'Dashboards y paneles de control',
-            'Intranets empresariales'
+            'ERP y plataformas administrativas',
+            'Gestión hotelera, educativa y de salud',
+            'Planillas y procesos de recursos humanos',
+            'Gestión de contratos y servicios recurrentes',
+            'Portales internos con roles y aprobaciones',
+            'Integración de módulos y fuentes de datos'
         ]
     },
-    mobile: {
-        title: 'Aplicaciones Móviles',
-        subtitle: 'Apps nativas e híbridas para iOS y Android con experiencia excepcional',
-        description: 'Desarrollamos aplicaciones móviles que conectan tu negocio con tus clientes. Apps personalizadas para cualquier sector empresarial.',
+    logistics: {
+        title: 'Inventarios, logística y compras',
+        subtitle: 'Trazabilidad desde el requerimiento hasta la entrega',
+        description: 'Construimos herramientas para conocer existencias, movimientos, responsables y documentos vinculados a cada operación logística.',
         features: [
-            {
-                title: 'Apps Nativas',
-                description: 'Desarrollo nativo para iOS (Swift) y Android (Kotlin) con máximo rendimiento y acceso completo a funcionalidades del dispositivo.'
-            },
-            {
-                title: 'Apps Híbridas',
-                description: 'Desarrollo con React Native y Flutter para crear apps multiplataforma con una única base de código.'
-            },
-            {
-                title: 'UI/UX Design',
-                description: 'Diseño de interfaces intuitivas y atractivas siguiendo las mejores prácticas de cada plataforma.'
-            }
+            { title: 'Inventario trazable', description: 'Control de kardex, series, ubicaciones, entradas, salidas y transferencias entre almacenes.' },
+            { title: 'Compras y aprobaciones', description: 'Flujos para requerimientos, cotizaciones, órdenes, conformidades y coordinación entre áreas.' },
+            { title: 'Control operativo', description: 'Seguimiento de activos, EPP, préstamos, proveedores y entregas con evidencias y alertas.' }
         ],
         solutions: [
-            'Apps de gestión de inventarios para almacenes',
-            'Aplicaciones de punto de venta móvil',
-            'Apps de delivery y logística',
-            'Aplicaciones de reservas para hoteles',
-            'Apps de catálogo de productos para negocios',
-            'Sistemas de pedidos móviles',
-            'Apps de gestión de clientes (CRM móvil)',
-            'Aplicaciones de fidelización'
+            'Kardex valorizado e inventario multialmacén',
+            'Solicitudes y órdenes de compra',
+            'Control de activos por número de serie',
+            'Entrega y devolución de EPP',
+            'Evaluación y seguimiento de proveedores',
+            'Reportes operativos y exportación a Excel o PDF'
         ]
     },
-    cloud: {
-        title: 'Soluciones Cloud',
-        subtitle: 'Infraestructura escalable y confiable en la nube',
-        description: 'Migramos y optimizamos tu infraestructura tecnológica en plataformas cloud líderes, garantizando disponibilidad, seguridad y escalabilidad.',
+    commercial: {
+        title: 'CRM, ventas y atención',
+        subtitle: 'Información comercial conectada desde el primer contacto',
+        description: 'Creamos soluciones para ordenar oportunidades, ventas, caja y atención, manteniendo el contexto de cada cliente y cada operación.',
         features: [
-            {
-                title: 'Migración a la Nube',
-                description: 'Planificación y ejecución de migraciones seguras de tus sistemas actuales a AWS, Azure o Google Cloud.'
-            },
-            {
-                title: 'DevOps & CI/CD',
-                description: 'Automatización de despliegues, integración continua y entrega continua para mayor agilidad en el desarrollo.'
-            },
-            {
-                title: 'Arquitectura Cloud-Native',
-                description: 'Diseño de aplicaciones modernas aprovechando servicios como contenedores, serverless y microservicios.'
-            }
+            { title: 'Seguimiento comercial', description: 'Contactos, oportunidades, actividades y estados visibles para todo el equipo autorizado.' },
+            { title: 'Ventas y punto de venta', description: 'Cotizaciones, pedidos, comprobantes, caja e inventario en un mismo flujo.' },
+            { title: 'Atención organizada', description: 'Turnos, entregas, encuestas e historial para ofrecer un servicio consistente.' }
         ],
         solutions: [
-            'Hosting escalable para aplicaciones empresariales',
-            'Bases de datos en la nube con alta disponibilidad',
-            'Almacenamiento seguro de archivos y backups',
-            'Infraestructura para sistemas de hoteles en múltiples sedes',
-            'Sincronización de inventarios multi-sucursal',
-            'Servidores de aplicaciones con auto-escalado',
-            'Balanceo de carga y CDN',
-            'Disaster recovery y continuidad de negocio'
+            'CRM y embudos de venta',
+            'Puntos de venta para una o varias tiendas',
+            'Cotizaciones, pedidos y facturación',
+            'Suscripciones y servicios recurrentes',
+            'Gestión de turnos y entregas',
+            'Marketplace y catálogos digitales'
         ]
     },
-    ai: {
-        title: 'Inteligencia Artificial',
-        subtitle: 'Automatización inteligente y análisis predictivo para tu negocio',
-        description: 'Implementamos soluciones de IA y Machine Learning que automatizan procesos, predicen tendencias y mejoran la toma de decisiones.',
+    interactive: {
+        title: 'Tótems y experiencias interactivas',
+        subtitle: 'Interacciones táctiles diseñadas para informar, activar y medir',
+        description: 'Desarrollamos aplicaciones para equipos de autoservicio y activaciones que combinan una interfaz clara con control administrativo.',
         features: [
-            {
-                title: 'Machine Learning',
-                description: 'Modelos de aprendizaje automático para clasificación, predicción y reconocimiento de patrones en tus datos.'
-            },
-            {
-                title: 'Análisis Predictivo',
-                description: 'Predicción de demanda, forecast de ventas, detección de anomalías y optimización de inventarios.'
-            },
-            {
-                title: 'Procesamiento de Lenguaje Natural',
-                description: 'Chatbots inteligentes, análisis de sentimientos, clasificación automática de documentos y asistentes virtuales.'
-            }
+            { title: 'Experiencia táctil', description: 'Interfaces sencillas, rápidas y adaptadas a pantallas de distintos formatos.' },
+            { title: 'Operación autónoma', description: 'Aplicaciones de escritorio con sesión controlada, sincronización y funcionamiento offline.' },
+            { title: 'Resultados medibles', description: 'Registro de interacciones, participantes, respuestas y exportación de resultados.' }
         ],
         solutions: [
-            'Predicción de demanda para control de inventarios en bodegas',
-            'Chatbots para atención al cliente en hoteles',
-            'Recomendación de productos en ferreterías',
-            'Análisis de ventas y patrones de compra',
-            'Detección de fraudes y anomalías',
-            'Optimización de precios dinámicos',
-            'Clasificación automática de productos',
-            'Análisis de comentarios de clientes'
+            'Trivia y dinámicas interactivas',
+            'Tótems fotográficos con QR',
+            'Catálogos y formularios de autoservicio',
+            'Gestores de contenidos para kioscos',
+            'Pantallas de turnos y entregas',
+            'Experiencias para eventos y espacios de atención'
         ]
     },
-    consulting: {
-        title: 'Consultoría Tecnológica',
-        subtitle: 'Asesoría estratégica para tu transformación digital',
-        description: 'Te ayudamos a definir la mejor estrategia tecnológica para tu negocio, optimizar procesos y maximizar el retorno de inversión en tecnología.',
+    signage: {
+        title: 'Cartelería digital y monitoreo',
+        subtitle: 'Contenido correcto, en la pantalla correcta y en el momento indicado',
+        description: 'Centralizamos la administración de pantallas y contenidos para facilitar campañas, programación y soporte técnico.',
         features: [
-            {
-                title: 'Auditoría Tecnológica',
-                description: 'Evaluación completa de tu infraestructura actual, identificación de problemas y oportunidades de mejora.'
-            },
-            {
-                title: 'Planificación Estratégica',
-                description: 'Definición de roadmap tecnológico alineado con los objetivos de tu negocio.'
-            },
-            {
-                title: 'Optimización de Procesos',
-                description: 'Automatización y mejora de procesos empresariales mediante tecnología adecuada.'
-            }
+            { title: 'Gestión de dispositivos', description: 'Inventario de pantallas, locales, ubicación, configuración y estado operativo.' },
+            { title: 'Programación de contenido', description: 'Listas de reproducción, campañas y horarios administrados desde un panel central.' },
+            { title: 'Monitoreo remoto', description: 'Indicadores, alertas y evidencias para detectar incidencias y responder con rapidez.' }
         ],
         solutions: [
-            'Evaluación de sistemas actuales en hoteles y propuestas de mejora',
-            'Optimización de procesos de inventario en bodegas',
-            'Digitalización de procesos en ferreterías',
-            'Selección de tecnologías adecuadas para cada negocio',
-            'Diseño de arquitecturas de software escalables',
-            'Evaluación de seguridad y cumplimiento normativo',
-            'Capacitación de equipos técnicos',
-            'Definición de estrategias de transformación digital'
+            'Panel de pantallas y locales',
+            'Listas de reproducción y calendarios',
+            'Sincronización y reproducción offline',
+            'Alertas de conectividad y estado',
+            'Mapas de equipos instalados',
+            'Tableros de cumplimiento de campañas'
         ]
     },
-    security: {
-        title: 'Seguridad Informática',
-        subtitle: 'Protección integral para tus sistemas y datos',
-        description: 'Aseguramos tus sistemas, aplicaciones y datos mediante las mejores prácticas de seguridad, auditorías y cumplimiento normativo.',
+    automation: {
+        title: 'Datos, automatización e IA',
+        subtitle: 'Menos trabajo repetitivo y más información para decidir',
+        description: 'Conectamos datos y automatizamos tareas para convertir operaciones dispersas en flujos medibles, oportunos y escalables.',
         features: [
-            {
-                title: 'Auditorías de Seguridad',
-                description: 'Evaluación exhaustiva de vulnerabilidades en tus aplicaciones, redes e infraestructura.'
-            },
-            {
-                title: 'Pentesting',
-                description: 'Pruebas de penetración éticas para identificar y corregir vulnerabilidades antes de que sean explotadas.'
-            },
-            {
-                title: 'Cumplimiento Normativo',
-                description: 'Aseguramiento del cumplimiento de normativas como GDPR, ISO 27001, PCI-DSS según tu industria.'
-            }
+            { title: 'Automatización de procesos', description: 'Reglas, alertas y tareas programadas que reducen pasos manuales y tiempos de respuesta.' },
+            { title: 'Integraciones', description: 'APIs y conectores para que sistemas, servicios y fuentes de datos trabajen juntos.' },
+            { title: 'Analítica e IA aplicada', description: 'Tableros, asistentes y modelos enfocados en necesidades concretas del negocio.' }
         ],
         solutions: [
-            'Protección de datos de clientes en sistemas hoteleros',
-            'Seguridad en transacciones de e-commerce',
-            'Control de acceso y autenticación de usuarios',
-            'Encriptación de datos sensibles',
-            'Protección contra ataques DDoS',
-            'Monitoreo de seguridad 24/7',
-            'Backups seguros y recuperación de desastres',
-            'Auditorías de cumplimiento GDPR'
+            'Dashboards de indicadores clave',
+            'Alertas y notificaciones automáticas',
+            'Importación, validación y exportación de datos',
+            'Integración entre plataformas mediante APIs',
+            'Asistentes para consultar u organizar información',
+            'Análisis de tendencias y apoyo a la planificación'
         ]
     }
 };
