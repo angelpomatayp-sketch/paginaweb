@@ -27,24 +27,43 @@ if (preloader) {
 
 // Theme toggle
 const themeToggle = document.getElementById('themeToggle');
+const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
 const storedTheme = localStorage.getItem('theme');
+const hasStoredTheme = storedTheme === 'dark' || storedTheme === 'light';
 
-if (storedTheme === 'dark') {
-    document.body.classList.add('dark-mode');
-}
+const applyTheme = (isDark) => {
+    document.body.classList.toggle('dark-mode', isDark);
+    document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';
+
+    if (themeToggle) {
+        themeToggle.setAttribute('aria-pressed', String(isDark));
+        themeToggle.setAttribute('aria-label', isDark ? 'Activar tema claro' : 'Activar tema oscuro');
+    }
+};
+
+applyTheme(hasStoredTheme ? storedTheme === 'dark' : systemTheme.matches);
 
 if (themeToggle) {
-    if (storedTheme === 'dark') {
-        themeToggle.setAttribute('aria-pressed', 'true');
-        themeToggle.setAttribute('aria-label', 'Activar tema claro');
-    }
-
     themeToggle.addEventListener('click', () => {
-        const isDark = document.body.classList.toggle('dark-mode');
+        const isDark = !document.body.classList.contains('dark-mode');
         localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        themeToggle.setAttribute('aria-pressed', isDark ? 'true' : 'false');
-        themeToggle.setAttribute('aria-label', isDark ? 'Activar tema claro' : 'Activar tema oscuro');
+        applyTheme(isDark);
     });
+}
+
+const handleSystemThemeChange = event => {
+    const currentStoredTheme = localStorage.getItem('theme');
+    const hasManualPreference = currentStoredTheme === 'dark' || currentStoredTheme === 'light';
+
+    if (!hasManualPreference) {
+        applyTheme(event.matches);
+    }
+};
+
+if (typeof systemTheme.addEventListener === 'function') {
+    systemTheme.addEventListener('change', handleSystemThemeChange);
+} else {
+    systemTheme.addListener(handleSystemThemeChange);
 }
 
 // Mobile Menu Toggle

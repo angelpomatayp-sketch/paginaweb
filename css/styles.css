@@ -6,6 +6,7 @@
 }
 
 :root {
+    color-scheme: light;
     --primary-color: #F7931E;
     --primary-dark: #D4780A;
     --secondary-color: #D4A84B;
@@ -1737,6 +1738,7 @@ body.preloader-active .preloader {
 
 /* Dark theme */
 body.dark-mode {
+    color-scheme: dark;
     background: radial-gradient(circle at 20% 20%, rgba(247, 147, 30, 0.1), transparent 45%),
                 radial-gradient(circle at 80% 80%, rgba(212, 168, 75, 0.08), transparent 50%),
                 #07101F;
