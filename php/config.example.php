@@ -16,12 +16,12 @@ define('SMTP_USERNAME', 'tu-email@gmail.com');   // Tu email completo
 define('SMTP_PASSWORD', 'tu-contraseña-app');    // Contraseña de aplicación (no tu contraseña normal)
 
 // Configuración de Destinatarios
-define('EMAIL_DESTINO', 'contacto@dymsac.com');  // Email donde recibirás los mensajes
+define('EMAIL_DESTINO', 'angel.pomatay.p@gmail.com'); // Email donde recibirás los mensajes
 define('EMAIL_REMITENTE', 'noreply@dymsac.com'); // Email que aparecerá como remitente
 define('NOMBRE_EMPRESA', 'DYM SAC');             // Nombre de tu empresa
 
 // Configuración del Sitio
-define('SITIO_URL', 'http://localhost/pag_dym'); // URL de tu sitio
+define('SITIO_URL', 'https://paginaweb-mauve.vercel.app'); // URL pública de tu sitio
 define('SITIO_NOMBRE', 'DYM SAC');               // Nombre del sitio
 
 // Configuración de Seguridad

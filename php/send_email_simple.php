@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // Configuración
-$destinatario = 'contacto@dymsac.com';
+$destinatario = 'angel.pomatay.p@gmail.com';
 $asunto_prefix = 'Contacto Web DYM SAC - ';
 
 // Función para limpiar datos
@@ -296,8 +296,8 @@ if ($enviado) {
                 Por favor, intenta de nuevo o contáctanos directamente.
             </p>
             <div class="contact-info">
-                <p><strong>Email:</strong> contacto@dymsac.com</p>
-                <p><strong>Teléfono:</strong> +51 (64) 123-4567</p>
+                <p><strong>Email:</strong> angel.pomatay.p@gmail.com</p>
+                <p><strong>Teléfono:</strong> +51 958 017 157</p>
                 <p><strong>Ubicación:</strong> Huancayo, Junín - Perú</p>
             </div>
             <a href="index.html#contacto" class="btn">Volver al Formulario</a>

@@ -35,7 +35,7 @@
                     <img src="img/logo_general-removebg-preview.png" alt="Logo DYM SAC">
                     <span class="logo-tagline">Servicios que construyen confianza</span>
                 </a>
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <button class="mobile-menu-btn" id="mobileMenuBtn" type="button" aria-label="Abrir menú de navegación" aria-controls="navMenu" aria-expanded="false">
                     <span></span>
                     <span></span>
                     <span></span>
@@ -98,7 +98,7 @@
                         <li>Node.js, Python, PHP</li>
                         <li>Diseño responsive</li>
                     </ul>
-                    <button class="btn-service-more">Ver más detalles</button>
+                    <button class="btn-service-more" type="button">Ver más detalles</button>
                 </div>
 
                 <div class="service-card" data-service="mobile">
@@ -114,7 +114,7 @@
                         <li>iOS y Android nativos</li>
                         <li>Apps híbridas</li>
                     </ul>
-                    <button class="btn-service-more">Ver más detalles</button>
+                    <button class="btn-service-more" type="button">Ver más detalles</button>
                 </div>
 
                 <div class="service-card" data-service="cloud">
@@ -130,7 +130,7 @@
                         <li>DevOps y CI/CD</li>
                         <li>Arquitectura escalable</li>
                     </ul>
-                    <button class="btn-service-more">Ver más detalles</button>
+                    <button class="btn-service-more" type="button">Ver más detalles</button>
                 </div>
 
                 <div class="service-card" data-service="ai">
@@ -146,7 +146,7 @@
                         <li>Análisis predictivo</li>
                         <li>Automatización inteligente</li>
                     </ul>
-                    <button class="btn-service-more">Ver más detalles</button>
+                    <button class="btn-service-more" type="button">Ver más detalles</button>
                 </div>
 
                 <div class="service-card" data-service="consulting">
@@ -163,7 +163,7 @@
                         <li>Planificación estratégica</li>
                         <li>Optimización de procesos</li>
                     </ul>
-                    <button class="btn-service-more">Ver más detalles</button>
+                    <button class="btn-service-more" type="button">Ver más detalles</button>
                 </div>
 
                 <div class="service-card" data-service="security">
@@ -179,7 +179,7 @@
                         <li>Pentesting</li>
                         <li>Cumplimiento normativo</li>
                     </ul>
-                    <button class="btn-service-more">Ver más detalles</button>
+                    <button class="btn-service-more" type="button">Ver más detalles</button>
                 </div>
             </div>
         </div>
@@ -350,7 +350,7 @@
                             </svg>
                             <div>
                                 <h4>Email</h4>
-                                <p>angel.pomatay.p@gmail.com</p>
+                                <p><a href="mailto:angel.pomatay.p@gmail.com">angel.pomatay.p@gmail.com</a></p>
                             </div>
                         </div>
                         <div class="contact-item">
@@ -359,7 +359,7 @@
                             </svg>
                             <div>
                                 <h4>Teléfono</h4>
-                                <p>+51 958 017 157</p>
+                                <p><a href="tel:+51958017157">+51 958 017 157</a></p>
                             </div>
                         </div>
                         <div class="contact-item">
@@ -376,6 +376,10 @@
                 </div>
 
                 <form class="contact-form" id="contactForm" action="php/send_email.php" method="POST">
+                    <div class="form-honeypot" aria-hidden="true">
+                        <label for="companyWebsite">Sitio web de la empresa</label>
+                        <input type="text" id="companyWebsite" name="company_website" tabindex="-1" autocomplete="off">
+                    </div>
                     <div class="form-group">
                         <label for="name">Nombre completo</label>
                         <input type="text" id="name" name="name" required>
@@ -420,29 +424,6 @@
                     </div>
                     <p class="footer-slogan">SERVICIOS QUE CONSTRUYEN CONFIANZA</p>
                     <p>Transformando ideas en soluciones digitales innovadoras.</p>
-                    <div class="social-links">
-                        <a href="https://www.facebook.com/" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
-                            </svg>
-                        </a>
-                        <a href="https://twitter.com/" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
-                            </svg>
-                        </a>
-                        <a href="https://www.linkedin.com/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
-                                <circle cx="4" cy="4" r="2"/>
-                            </svg>
-                        </a>
-                        <a href="https://github.com/" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
-                            </svg>
-                        </a>
-                    </div>
                 </div>
 
                 <div class="footer-section">
@@ -467,15 +448,7 @@
 
                 <div class="footer-section">
                     <h3>Newsletter</h3>
-                    <p>Suscríbete para recibir noticias y actualizaciones</p>
-                    <form class="newsletter-form">
-                        <input type="email" placeholder="Tu email">
-                        <button type="submit">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <path d="M5 12h14M12 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </button>
-                    </form>
+                    <p>Próximamente habilitaremos nuestras novedades y actualizaciones.</p>
                 </div>
             </div>
 
@@ -513,9 +486,9 @@
     </a>
 
     <!-- Modal de Servicios -->
-    <div id="serviceModal" class="modal">
-        <div class="modal-content">
-            <span class="modal-close">&times;</span>
+    <div id="serviceModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="serviceModalTitle" aria-hidden="true">
+        <div class="modal-content" tabindex="-1">
+            <button class="modal-close" type="button" aria-label="Cerrar detalles del servicio">&times;</button>
             <div id="modalBody"></div>
         </div>
     </div>

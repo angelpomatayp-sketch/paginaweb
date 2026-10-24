@@ -16,10 +16,12 @@ Página web profesional para DYM SAC, empresa de desarrollo de software y consul
 ```
 pag_dym/
 ├── index.html                      # Página principal
-├── styles.css                      # Estilos CSS
-├── script.js                       # JavaScript interactivo
-├── send_email.php                  # Script PHP para envío de emails
-├── logo_general-removebg-preview.png  # Logo de la empresa
+├── api/contact.js                  # Endpoint de contacto para Vercel
+├── css/styles.css                  # Estilos CSS
+├── js/script.js                    # JavaScript interactivo
+├── php/send_email.php              # Envío de emails en Apache/PHP
+├── img/logo_general-removebg-preview.png
+├── vercel.json                     # Cabeceras de seguridad en Vercel
 └── README.md                       # Este archivo
 ```
 
@@ -65,17 +67,27 @@ PHP usará el comando `sendmail` del sistema. Asegúrate de tener configurado Po
 3. **Personaliza el email de destino** en `send_email.php`:
 
 ```php
-$destinatario = 'contacto@dymsac.com'; // Cambia por tu email real
+$destinatario = 'angel.pomatay.p@gmail.com'; // Cambia por tu email real
 ```
 
 4. **Prueba el sitio**: Abre `http://localhost/pag_dym/` en tu navegador
+
+### En Vercel
+
+El formulario utiliza `api/contact.js` y la API de Resend. Configura estas variables de entorno en el proyecto de Vercel:
+
+- `RESEND_API_KEY`: clave privada de Resend.
+- `RESEND_FROM_EMAIL`: remitente verificado, por ejemplo `DYM SAC <contacto@tudominio.com>`.
+- `CONTACT_TO_EMAIL`: destinatario; si se omite, se usa `angel.pomatay.p@gmail.com`.
+
+La publicación excluye automáticamente los archivos PHP, `.htaccess` y la documentación mediante `.vercelignore`.
 
 ## Configuración del Formulario de Contacto
 
 El formulario envía emails a través de PHP. Cuando un usuario completa el formulario:
 
 1. Los datos se validan en el servidor
-2. Se envía un email a `contacto@dymsac.com` con la información
+2. Se envía un email a `angel.pomatay.p@gmail.com` con la información
 3. Se envía un email de confirmación automática al usuario
 4. Se muestra un mensaje de éxito o error
 
@@ -112,8 +124,8 @@ En `index.html`, busca la sección `<section id="servicios">` y edita los `.serv
 
 ## Datos de Contacto Actuales
 
-- **Email:** contacto@dymsac.com
-- **Teléfono:** +51 (64) 123-4567
+- **Email:** angel.pomatay.p@gmail.com
+- **Teléfono:** +51 958 017 157
 - **Ubicación:** Huancayo, Junín - Perú
 
 Para cambiar estos datos, busca y reemplaza en `index.html` y `send_email.php`.

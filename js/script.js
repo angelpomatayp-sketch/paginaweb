@@ -20,7 +20,7 @@ const preloader = document.getElementById('preloader');
 if (preloader) {
     document.body.classList.add('preloader-active');
     window.addEventListener('load', () => {
-        const minimumDisplay = 4000;
+        const minimumDisplay = 500;
         setTimeout(() => {
             preloader.classList.add('hide');
             document.body.classList.remove('preloader-active');
@@ -43,10 +43,14 @@ if (binaryTextBlocks.length) {
 
 // Theme toggle
 const themeToggle = document.getElementById('themeToggle');
+const storedTheme = localStorage.getItem('theme');
+
+if (storedTheme === 'dark') {
+    document.body.classList.add('dark-mode');
+}
+
 if (themeToggle) {
-    const storedTheme = localStorage.getItem('theme');
     if (storedTheme === 'dark') {
-        document.body.classList.add('dark-mode');
         themeToggle.setAttribute('aria-pressed', 'true');
         themeToggle.setAttribute('aria-label', 'Activar tema claro');
     }
@@ -63,17 +67,25 @@ if (themeToggle) {
 const mobileMenuBtn = document.getElementById('mobileMenuBtn');
 const navMenu = document.getElementById('navMenu');
 
-mobileMenuBtn.addEventListener('click', () => {
-    navMenu.classList.toggle('active');
-    mobileMenuBtn.classList.toggle('active');
-});
+const setMobileMenuState = (isOpen) => {
+    if (!mobileMenuBtn || !navMenu) return;
+    navMenu.classList.toggle('active', isOpen);
+    mobileMenuBtn.classList.toggle('active', isOpen);
+    mobileMenuBtn.setAttribute('aria-expanded', String(isOpen));
+    mobileMenuBtn.setAttribute('aria-label', isOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación');
+};
+
+if (mobileMenuBtn && navMenu) {
+    mobileMenuBtn.addEventListener('click', () => {
+        setMobileMenuState(!navMenu.classList.contains('active'));
+    });
+}
 
 // Close mobile menu when clicking on a link
 const navLinks = document.querySelectorAll('.nav-menu a');
 navLinks.forEach(link => {
     link.addEventListener('click', () => {
-        navMenu.classList.remove('active');
-        mobileMenuBtn.classList.remove('active');
+        setMobileMenuState(false);
     });
 });
 
@@ -82,6 +94,7 @@ const navbar = document.querySelector('.navbar');
 let lastScroll = 0;
 
 window.addEventListener('scroll', () => {
+    if (!navbar) return;
     const currentScroll = window.pageYOffset;
 
     if (currentScroll > 100) {
@@ -110,48 +123,46 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 // Form submission
 const contactForm = document.getElementById('contactForm');
-const submitButton = contactForm.querySelector('button[type="submit"]');
-const originalButtonText = submitButton.textContent;
 
-contactForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
+if (contactForm) {
+    const submitButton = contactForm.querySelector('button[type="submit"]');
+    const originalButtonText = submitButton.textContent;
 
-    // Deshabilitar el botón durante el envío
-    submitButton.disabled = true;
-    submitButton.textContent = 'Enviando...';
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        submitButton.disabled = true;
+        submitButton.textContent = 'Enviando...';
 
-    // Crear FormData del formulario
-    const formData = new FormData(contactForm);
+        const isLocalApache = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+        const endpoint = isLocalApache ? 'php/send_email.php' : '/api/contact';
+        const formData = new FormData(contactForm);
+        const requestBody = isLocalApache
+            ? formData
+            : JSON.stringify(Object.fromEntries(formData.entries()));
 
-    try {
-        const response = await fetch('php/send_email.php', {
-            method: 'POST',
-            body: formData
-        });
+        try {
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                headers: isLocalApache ? undefined : { 'Content-Type': 'application/json' },
+                body: requestBody
+            });
+            const data = await response.json().catch(() => ({}));
 
-        const data = await response.json();
-
-        if (data.success) {
-            // Mostrar mensaje de éxito
-            showMessage('¡Gracias por contactarnos! Te responderemos pronto.', 'success');
-            contactForm.reset();
-        } else {
-            // Mostrar mensaje de error
-            let errorMessage = data.message;
-            if (data.errors && data.errors.length > 0) {
-                errorMessage += '\n- ' + data.errors.join('\n- ');
+            if (!response.ok || !data.success) {
+                const details = Array.isArray(data.errors) ? `\n- ${data.errors.join('\n- ')}` : '';
+                throw new Error(`${data.message || 'No se pudo enviar el mensaje.'}${details}`);
             }
-            showMessage(errorMessage, 'error');
+
+            showMessage(data.message || '¡Gracias por contactarnos! Te responderemos pronto.', 'success');
+            contactForm.reset();
+        } catch (error) {
+            showMessage(error.message || 'Hubo un error al enviar el mensaje. Escríbenos a angel.pomatay.p@gmail.com.', 'error');
+        } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = originalButtonText;
         }
-    } catch (error) {
-        console.error('Error:', error);
-        showMessage('Hubo un error al enviar el mensaje. Por favor, intenta de nuevo o contáctanos directamente.', 'error');
-    } finally {
-        // Rehabilitar el botón
-        submitButton.disabled = false;
-        submitButton.textContent = originalButtonText;
-    }
-});
+    });
+}
 
 // Función para mostrar mensajes
 function showMessage(message, type) {
@@ -159,6 +170,8 @@ function showMessage(message, type) {
     const messageDiv = document.createElement('div');
     messageDiv.className = `message-notification ${type}`;
     messageDiv.textContent = message;
+    messageDiv.setAttribute('role', type === 'error' ? 'alert' : 'status');
+    messageDiv.setAttribute('aria-live', type === 'error' ? 'assertive' : 'polite');
 
     // Agregar estilos dinámicamente
     const style = document.createElement('style');
@@ -174,6 +187,7 @@ function showMessage(message, type) {
             max-width: 400px;
             animation: slideIn 0.3s ease;
             font-weight: 500;
+            white-space: pre-line;
         }
 
         .message-notification.success {
@@ -225,18 +239,6 @@ function showMessage(message, type) {
         }, 300);
     }, 5000);
 }
-
-// Newsletter form
-const newsletterForm = document.querySelector('.newsletter-form');
-
-newsletterForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const email = newsletterForm.querySelector('input').value;
-
-    console.log('Newsletter subscription:', email);
-    alert('¡Gracias por suscribirte a nuestro newsletter!');
-    newsletterForm.reset();
-});
 
 // Intersection Observer for scroll animations
 
@@ -370,6 +372,7 @@ document.head.appendChild(style);
 const serviceModal = document.getElementById('serviceModal');
 const modalBody = document.getElementById('modalBody');
 const modalClose = document.querySelector('.modal-close');
+let lastFocusedElement = null;
 
 // Contenido de los modales para cada servicio
 const serviceContent = {
@@ -552,11 +555,13 @@ const serviceContent = {
 // Función para abrir el modal
 function openServiceModal(serviceType) {
     const content = serviceContent[serviceType];
-    if (!content) return;
+    if (!content || !serviceModal || !modalBody) return;
+
+    lastFocusedElement = document.activeElement;
 
     modalBody.innerHTML = `
         <div class="modal-header">
-            <h2>${content.title}</h2>
+            <h2 id="serviceModalTitle">${content.title}</h2>
             <p>${content.subtitle}</p>
         </div>
         <div class="modal-body">
@@ -592,13 +597,18 @@ function openServiceModal(serviceType) {
     `;
 
     serviceModal.classList.add('active');
+    serviceModal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
+    modalClose?.focus();
 }
 
 // Función para cerrar el modal
 function closeServiceModal() {
+    if (!serviceModal) return;
     serviceModal.classList.remove('active');
+    serviceModal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    lastFocusedElement?.focus();
 }
 
 // Event listeners para los botones de servicio
@@ -614,18 +624,16 @@ document.querySelectorAll('.service-card').forEach(card => {
 });
 
 // Cerrar modal al hacer click en X
-modalClose.addEventListener('click', closeServiceModal);
+modalClose?.addEventListener('click', closeServiceModal);
 
 // Cerrar modal al hacer click fuera del contenido
-serviceModal.addEventListener('click', (e) => {
-    if (e.target === serviceModal) {
-        closeServiceModal();
-    }
+serviceModal?.addEventListener('click', (e) => {
+    if (e.target === serviceModal) closeServiceModal();
 });
 
 // Cerrar modal con la tecla ESC
 document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && serviceModal.classList.contains('active')) {
+    if (e.key === 'Escape' && serviceModal?.classList.contains('active')) {
         closeServiceModal();
     }
 });

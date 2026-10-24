@@ -1,11 +1,7 @@
 <?php
 // Configuración
 header('Content-Type: application/json; charset=utf-8');
-
-// Permitir CORS (opcional, solo si necesitas llamadas AJAX desde otro dominio)
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: POST');
-header('Access-Control-Allow-Headers: Content-Type');
+header('X-Content-Type-Options: nosniff');
 
 // Verificar que sea una petición POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -15,31 +11,46 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // Configuración del correo
-$destinatario = 'contacto@dymsac.com'; // Email donde recibirás los mensajes
+$destinatario = 'angel.pomatay.p@gmail.com';
 $asunto_prefix = 'Nuevo mensaje desde el sitio web - ';
 
 // Obtener y validar datos del formulario
-$nombre = isset($_POST['name']) ? trim($_POST['name']) : '';
+$nombre = isset($_POST['name']) ? trim(str_replace(["\r", "\n"], ' ', $_POST['name'])) : '';
 $email = isset($_POST['email']) ? trim($_POST['email']) : '';
 $telefono = isset($_POST['phone']) ? trim($_POST['phone']) : '';
 $servicio = isset($_POST['service']) ? trim($_POST['service']) : '';
 $mensaje = isset($_POST['message']) ? trim($_POST['message']) : '';
+$honeypot = isset($_POST['company_website']) ? trim($_POST['company_website']) : '';
 
 // Validación básica
 $errores = [];
 
-if (empty($nombre)) {
-    $errores[] = 'El nombre es requerido';
+if (!empty($honeypot)) {
+    http_response_code(200);
+    echo json_encode(['success' => true, 'message' => 'Mensaje recibido.']);
+    exit;
+}
+
+if (mb_strlen($nombre) < 3 || mb_strlen($nombre) > 100) {
+    $errores[] = 'El nombre debe tener entre 3 y 100 caracteres';
 }
 
 if (empty($email)) {
     $errores[] = 'El email es requerido';
-} elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+} elseif (strlen($email) > 254 || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $errores[] = 'El email no es válido';
 }
 
-if (empty($mensaje)) {
-    $errores[] = 'El mensaje es requerido';
+if (!empty($telefono) && !preg_match('/^[0-9+()\s-]{7,25}$/', $telefono)) {
+    $errores[] = 'El teléfono no tiene un formato válido';
+}
+
+if (!in_array($servicio, ['', 'web', 'mobile', 'cloud', 'ai', 'consulting', 'security'], true)) {
+    $errores[] = 'El servicio seleccionado no es válido';
+}
+
+if (mb_strlen($mensaje) < 10 || mb_strlen($mensaje) > 3000) {
+    $errores[] = 'El mensaje debe tener entre 10 y 3000 caracteres';
 }
 
 // Si hay errores, retornar
@@ -52,6 +63,26 @@ if (!empty($errores)) {
     ]);
     exit;
 }
+
+// Límite básico por IP: máximo 5 intentos válidos cada 10 minutos.
+$ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+$rate_file = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'dym_contact_' . hash('sha256', $ip) . '.json';
+$now = time();
+$attempts = [];
+if (is_file($rate_file)) {
+    $stored_attempts = json_decode((string) file_get_contents($rate_file), true);
+    if (is_array($stored_attempts)) {
+        $attempts = array_values(array_filter($stored_attempts, fn($timestamp) => is_int($timestamp) && $timestamp > $now - 600));
+    }
+}
+if (count($attempts) >= 5) {
+    http_response_code(429);
+    header('Retry-After: 600');
+    echo json_encode(['success' => false, 'message' => 'Has realizado varios intentos. Espera unos minutos antes de volver a enviar.']);
+    exit;
+}
+$attempts[] = $now;
+file_put_contents($rate_file, json_encode($attempts), LOCK_EX);
 
 // Preparar el asunto
 $servicios = [
@@ -144,7 +175,7 @@ $headers = [];
 $headers[] = 'MIME-Version: 1.0';
 $headers[] = 'Content-type: text/html; charset=utf-8';
 $headers[] = 'From: DYM SAC Web <noreply@dymsac.com>';
-$headers[] = 'Reply-To: ' . $nombre . ' <' . $email . '>';
+$headers[] = 'Reply-To: ' . $email;
 $headers[] = 'X-Mailer: PHP/' . phpversion();
 
 // Intentar enviar el correo
@@ -175,13 +206,13 @@ if ($enviado) {
                 <p>Hola <strong>" . htmlspecialchars($nombre) . "</strong>,</p>
                 <p>Hemos recibido tu mensaje y nos pondremos en contacto contigo lo antes posible.</p>
                 <p>Nuestro equipo revisará tu consulta sobre <strong>" . htmlspecialchars($servicio_nombre) . "</strong> y te responderá a la brevedad.</p>
-                <p>Si tienes alguna pregunta urgente, no dudes en llamarnos al <strong>+51 (64) 123-4567</strong>.</p>
+                <p>Si tienes alguna pregunta urgente, no dudes en llamarnos al <strong>+51 958 017 157</strong>.</p>
                 <br>
                 <p>Saludos cordiales,<br><strong>Equipo DYM SAC</strong></p>
                 <p style='margin-top: 20px; font-size: 12px; color: #666;'>
                     Huancayo, Junín - Perú<br>
-                    contacto@dymsac.com<br>
-                    +51 (64) 123-4567
+                    angel.pomatay.p@gmail.com<br>
+                    +51 958 017 157
                 </p>
             </div>
         </div>
@@ -192,7 +223,7 @@ if ($enviado) {
     $confirmacion_headers = [];
     $confirmacion_headers[] = 'MIME-Version: 1.0';
     $confirmacion_headers[] = 'Content-type: text/html; charset=utf-8';
-    $confirmacion_headers[] = 'From: DYM SAC <contacto@dymsac.com>';
+    $confirmacion_headers[] = 'From: DYM SAC <noreply@dymsac.com>';
     $confirmacion_headers[] = 'X-Mailer: PHP/' . phpversion();
 
     // Enviar email de confirmación (opcional)

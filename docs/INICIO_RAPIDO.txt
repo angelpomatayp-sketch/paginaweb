@@ -31,7 +31,7 @@ OPCIÓN A - Versión Simple (Recomendada para empezar):
    Por:    action="send_email_simple.php"
 
 2. Edita send_email_simple.php línea 12:
-   Cambia: $destinatario = 'contacto@dymsac.com';
+   Cambia: $destinatario = 'angel.pomatay.p@gmail.com';
    Por:    $destinatario = 'TU-EMAIL-REAL@gmail.com';
 
 3. Configura XAMPP para enviar emails:
@@ -97,8 +97,8 @@ Cambiar Logo:
 Cambiar Datos de Contacto:
 ──────────────────────────
 Busca y reemplaza en index.html:
-- Email: contacto@dymsac.com
-- Teléfono: +51 (64) 123-4567
+- Email: angel.pomatay.p@gmail.com
+- Teléfono: +51 958 017 157
 - Ubicación: Huancayo, Junín - Perú
 
 🎨 CARACTERÍSTICAS DEL SITIO:
@@ -172,8 +172,8 @@ El menú móvil no funciona:
 📞 INFORMACIÓN DE CONTACTO ACTUAL:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Empresa:   DYM SAC
-Email:     contacto@dymsac.com
-Teléfono:  +51 (64) 123-4567
+Email:     angel.pomatay.p@gmail.com
+Teléfono:  +51 958 017 157
 Ubicación: Huancayo, Junín - Perú
 Colores:   Azul corporativo (#0066cc)
 

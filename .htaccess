@@ -102,6 +102,17 @@
     Deny from all
 </Files>
 
+# Impedir el acceso a endpoints y plantillas que no usa la web pública
+<FilesMatch "^(send_email_simple|config\.example)\.php$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
 # Prevenir listado de directorios
 Options -Indexes
 
