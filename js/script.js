@@ -3,9 +3,18 @@ const preloader = document.getElementById('preloader');
 if (preloader) {
     const preloaderStartedAt = performance.now();
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let bootedBefore = false;
+    try {
+        bootedBefore = sessionStorage.getItem('dym-booted') === '1';
+        sessionStorage.setItem('dym-booted', '1');
+    } catch (error) {
+        bootedBefore = false;
+    }
+    // Primera visita: secuencia de arranque completa. Visitas siguientes: breve.
+    const minimumDisplay = reduceMotion ? 100 : (bootedBefore ? 700 : 2100);
+    document.documentElement.style.setProperty('--boot-ms', `${minimumDisplay}ms`);
 
     const hidePreloader = () => {
-        const minimumDisplay = reduceMotion ? 100 : 900;
         const elapsed = performance.now() - preloaderStartedAt;
         const remaining = Math.max(0, minimumDisplay - elapsed);
 
@@ -14,7 +23,8 @@ if (preloader) {
             preloader.setAttribute('aria-hidden', 'true');
             document.body.classList.remove('preloader-active');
             document.body.classList.add('page-ready');
-            setTimeout(() => preloader.remove(), 240);
+            document.dispatchEvent(new Event('dym:ready'));
+            setTimeout(() => preloader.remove(), 600);
         }, remaining);
     };
 
@@ -47,7 +57,25 @@ if (themeToggle) {
     themeToggle.addEventListener('click', () => {
         const isDark = !document.body.classList.contains('dark-mode');
         localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        applyTheme(isDark);
+
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (typeof document.startViewTransition !== 'function' || prefersReducedMotion) {
+            applyTheme(isDark);
+            return;
+        }
+
+        // Transición circular desde el botón de tema
+        const rect = themeToggle.getBoundingClientRect();
+        const x = rect.left + rect.width / 2;
+        const y = rect.top + rect.height / 2;
+        const radius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
+        const transition = document.startViewTransition(() => applyTheme(isDark));
+        transition.ready.then(() => {
+            document.documentElement.animate(
+                { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${radius}px at ${x}px ${y}px)`] },
+                { duration: 700, easing: 'cubic-bezier(0.65, 0, 0.35, 1)', pseudoElement: '::view-transition-new(root)' }
+            );
+        }).catch(() => {});
     });
 }
 
@@ -538,7 +566,14 @@ const revealObserver = new IntersectionObserver((entries) => {
             });
         }
     });
-}, { threshold: 0.15, rootMargin: '0px 0px -120px 0px' });
+}, { threshold: 0, rootMargin: '0px 0px -60px 0px' });
+
+// Al llegar al final de la página, mostrar cualquier elemento que el observer no alcanzó
+window.addEventListener('scroll', () => {
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
+        document.querySelectorAll('.reveal:not(.is-visible)').forEach(el => el.classList.add('is-visible'));
+    }
+}, { passive: true });
 
 const revealTargets = document.querySelectorAll(
     '.reveal, .reveal-slide-left, .reveal-slide-right, .reveal-scale, .reveal-wipe, .section-header, .hero-content, .about-text, .about-image, .project-card, .contact-info, .contact-form, .footer-content, .footer-bottom'

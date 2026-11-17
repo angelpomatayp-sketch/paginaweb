@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 500 500" width="500" height="500" role="img" aria-labelledby="t">
+  <title id="t">DYM SAC - Servicios y proyectos</title>
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F8D98A"/>
+      <stop offset=".5" stop-color="#D4A84B"/>
+      <stop offset="1" stop-color="#B9852F"/>
+    </linearGradient>
+    <linearGradient id="steel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#C3CCD8"/>
+      <stop offset="1" stop-color="#7E8A9B"/>
+    </linearGradient>
+    <linearGradient id="slate" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7A889C"/>
+      <stop offset="1" stop-color="#465366"/>
+    </linearGradient>
+    <linearGradient id="orange" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFC15E"/>
+      <stop offset="1" stop-color="#F7931E"/>
+    </linearGradient>
+    <filter id="glow" filterUnits="userSpaceOnUse" x="0" y="0" width="500" height="500">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="bolt-glow" filterUnits="userSpaceOnUse" x="240" y="90" width="150" height="150">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <clipPath id="gear-clip">
+      <polygon points="0,0 500,0 500,264 378,264 250,162 122,264 0,264"/>
+    </clipPath>
+    <path id="pad" fill-rule="evenodd" d="M7 0L3.5 6.06L-3.5 6.06L-7 0L-3.5 -6.06L3.5 -6.06Z M3.2 0L1.6 2.77L-1.6 2.77L-3.2 0L-1.6 -2.77L1.6 -2.77Z"/>
+
+    <!-- Trazas del circuito (lado izquierdo, se reflejan a la derecha) -->
+    <g id="traces-left">
+      <path class="tr" style="--d:.05s" pathLength="1" d="M217,57.9 A190,190 0 0 0 71.5,180 H28"/>
+      <path class="tr" style="--d:.15s" pathLength="1" d="M217,432.1 A190,190 0 0 1 71.5,310 H28"/>
+      <path class="tr" style="--d:.25s" pathLength="1" d="M170.2,94.9 A170,170 0 0 0 82.6,215.5 H44"/>
+      <path class="tr" style="--d:.35s" pathLength="1" d="M170.2,395.1 A170,170 0 0 1 82.6,274.5 H44"/>
+      <path class="tr" style="--d:.45s" pathLength="1" d="M135.1,148.6 A150,150 0 0 0 135.1,341.4"/>
+      <path class="tr" style="--d:.6s" pathLength="1" d="M100,245 H60"/>
+    </g>
+    <g id="packets-left">
+      <path class="pk" style="--d:2.0s;--s:3.2s" pathLength="1" d="M217,57.9 A190,190 0 0 0 71.5,180 H28"/>
+      <path class="pk" style="--d:3.1s;--s:3.6s" pathLength="1" d="M217,432.1 A190,190 0 0 1 71.5,310 H28"/>
+      <path class="pk" style="--d:2.6s;--s:2.8s" pathLength="1" d="M170.2,94.9 A170,170 0 0 0 82.6,215.5 H44"/>
+      <path class="pk" style="--d:3.8s;--s:3s" pathLength="1" d="M170.2,395.1 A170,170 0 0 1 82.6,274.5 H44"/>
+      <path class="pk" style="--d:2.3s;--s:2.6s" pathLength="1" d="M135.1,148.6 A150,150 0 0 0 135.1,341.4"/>
+    </g>
+    <g id="nodes-left">
+      <g transform="translate(217 57.9)"><g class="nd" style="--d:1.05s"><use href="#pad" xlink:href="#pad"/></g></g>
+      <g transform="translate(28 180)"><g class="nd" style="--d:1.1s"><use href="#pad" xlink:href="#pad"/></g></g>
+      <g transform="translate(217 432.1)"><g class="nd" style="--d:1.15s"><use href="#pad" xlink:href="#pad"/></g></g>
+      <g transform="translate(28 310)"><g class="nd" style="--d:1.2s"><use href="#pad" xlink:href="#pad"/></g></g>
+      <g transform="translate(170.2 94.9)"><g class="nd" style="--d:1.25s"><use href="#pad" xlink:href="#pad"/></g></g>
+      <g transform="translate(44 215.5)"><g class="nd" style="--d:1.3s"><use href="#pad" xlink:href="#pad"/></g></g>
+      <g transform="translate(170.2 395.1)"><g class="nd" style="--d:1.35s"><use href="#pad" xlink:href="#pad"/></g></g>
+      <g transform="translate(44 274.5)"><g class="nd" style="--d:1.4s"><use href="#pad" xlink:href="#pad"/></g></g>
+      <g transform="translate(135.1 148.6)"><g class="nd" style="--d:1.45s"><use href="#pad" xlink:href="#pad"/></g></g>
+      <g transform="translate(135.1 341.4)"><g class="nd" style="--d:1.5s"><use href="#pad" xlink:href="#pad"/></g></g>
+      <g transform="translate(60 245)"><g class="nd" style="--d:1.55s"><use href="#pad" xlink:href="#pad"/></g></g>
+    </g>
+  </defs>
+
+  <style>
+    .tr { fill: none; stroke: url(#gold); stroke-width: 4.5; stroke-linecap: round; stroke-dasharray: 1 1; animation: draw 1.1s cubic-bezier(.65,0,.35,1) var(--d, 0s) both; }
+    .pk { fill: none; stroke: #FFF1C7; stroke-width: 5; stroke-linecap: round; stroke-dasharray: .07 2; stroke-dashoffset: .07; opacity: 0; animation: packet var(--s, 3s) linear var(--d, 2s) infinite; }
+    .nd { fill: url(#gold); transform-box: fill-box; transform-origin: center; animation: pop .45s cubic-bezier(.34,1.56,.64,1) var(--d, 1s) both, blink 3.2s ease-in-out calc(var(--d, 1s) + 1s) infinite; }
+    .gear-rot { transform-box: view-box; transform-origin: 250px 214px; animation: spin 22s linear infinite; }
+    .gear { animation: gear-in .7s cubic-bezier(.22,1,.36,1) .25s both; transform-box: view-box; transform-origin: 250px 214px; }
+    .roof { animation: drop .75s cubic-bezier(.34,1.56,.64,1) .5s both; }
+    .wall { transform-box: fill-box; transform-origin: 50% 100%; animation: rise .5s cubic-bezier(.22,1,.36,1) .8s both; }
+    .wordmark { animation: neon 1s steps(1, end) 1.1s both; }
+    .bolt { transform-box: fill-box; transform-origin: 50% 0; animation: strike .5s cubic-bezier(.34,1.56,.64,1) 1.35s both, flicker 5s linear 2.4s infinite; }
+    .tagline { animation: fade-up .6s cubic-bezier(.22,1,.36,1) 1.55s both; }
+    .rule { transform-box: fill-box; transform-origin: center; animation: grow .7s cubic-bezier(.65,0,.35,1) 1.65s both; }
+    .arc-bottom { animation-delay: .7s; }
+
+    @keyframes draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+    @keyframes packet { 0% { stroke-dashoffset: .07; opacity: 0; } 8% { opacity: 1; } 85% { opacity: 1; } 100% { stroke-dashoffset: -1; opacity: 0; } }
+    @keyframes pop { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: .55; } }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes gear-in { from { opacity: 0; transform: scale(.6) rotate(-90deg); } to { opacity: 1; transform: none; } }
+    @keyframes drop { from { opacity: 0; transform: translateY(-46px); } to { opacity: 1; transform: none; } }
+    @keyframes rise { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+    @keyframes neon { 0% { opacity: 0; } 15% { opacity: 1; } 25% { opacity: .2; } 35% { opacity: 1; } 50% { opacity: .4; } 60%, 100% { opacity: 1; } }
+    @keyframes strike { from { opacity: 0; transform: translateY(-30px) scale(.4); } to { opacity: 1; transform: none; } }
+    @keyframes flicker { 0%, 88%, 100% { opacity: 1; } 90% { opacity: .25; } 92% { opacity: 1; } 94% { opacity: .5; } 96% { opacity: 1; } }
+    @keyframes fade-up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+    @keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, .tr, .nd, .gear, .gear-rot, .roof, .wall, .wordmark, .bolt, .tagline, .rule { animation: none !important; }
+      .pk { display: none; }
+    }
+  </style>
+
+  <!-- Circuitos -->
+  <use href="#traces-left" xlink:href="#traces-left"/>
+  <g transform="matrix(-1 0 0 1 500 0)"><use href="#traces-left" xlink:href="#traces-left"/></g>
+  <path class="tr arc-bottom" style="--d:.7s" pathLength="1" d="M163.4,430.8 A205,205 0 0 0 336.6,430.8"/>
+
+  <g filter="url(#glow)">
+    <use href="#packets-left" xlink:href="#packets-left"/>
+    <g transform="matrix(-1 0 0 1 500 0)"><use href="#packets-left" xlink:href="#packets-left"/></g>
+    <path class="pk" style="--d:2.9s;--s:3.4s" pathLength="1" d="M163.4,430.8 A205,205 0 0 0 336.6,430.8"/>
+  </g>
+
+  <use href="#nodes-left" xlink:href="#nodes-left"/>
+  <g transform="matrix(-1 0 0 1 500 0)"><use href="#nodes-left" xlink:href="#nodes-left"/></g>
+  <g transform="translate(163.4 430.8)"><g class="nd" style="--d:1.6s"><use href="#pad" xlink:href="#pad"/></g></g>
+  <g transform="translate(250 450)"><g class="nd" style="--d:1.65s"><use href="#pad" xlink:href="#pad"/></g></g>
+  <g transform="translate(336.6 430.8)"><g class="nd" style="--d:1.7s"><use href="#pad" xlink:href="#pad"/></g></g>
+
+  <!-- Engranaje -->
+  <g clip-path="url(#gear-clip)">
+    <g class="gear">
+      <g class="gear-rot" fill="none" stroke="url(#steel)">
+        <circle cx="250" cy="214" r="72" stroke-width="16" pathLength="100" stroke-dasharray="4 4.333"/>
+        <circle cx="250" cy="214" r="60" stroke-width="13"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- Casa -->
+  <rect class="wall" x="168" y="245" width="20" height="75" rx="2" fill="url(#slate)"/>
+  <rect class="wall" x="312" y="245" width="20" height="75" rx="2" fill="url(#slate)"/>
+  <polygon class="roof" points="122,264 250,162 378,264 362,284 250,195 138,284" fill="url(#slate)"/>
+
+  <!-- Rayo -->
+  <polygon class="bolt" filter="url(#bolt-glow)" points="306,128 330,128 316,152 334,152 298,192 310,162 292,162" fill="url(#orange)"/>
+
+  <!-- Marca -->
+  <g class="wordmark" fill="url(#orange)" font-family="'Arial Black','Segoe UI Black','Helvetica Neue',Arial,sans-serif" font-weight="900" text-anchor="middle" letter-spacing="2">
+    <text x="250" y="270" font-size="36">DYM</text>
+    <text x="252" y="308" font-size="36">SAC</text>
+  </g>
+  <text class="tagline" x="250" y="350" fill="#D4A84B" font-family="'Trebuchet MS','Segoe UI',Arial,sans-serif" font-style="italic" font-weight="700" font-size="19" text-anchor="middle" letter-spacing=".5">Servicios y proyectos</text>
+  <rect class="rule" x="160" y="360" width="180" height="2.5" rx="1.25" fill="url(#gold)"/>
+</svg>
