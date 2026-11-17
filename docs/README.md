@@ -125,7 +125,7 @@ En `index.html`, busca la sección `<section id="servicios">` y edita los `.serv
 ## Datos de Contacto Actuales
 
 - **Email:** angel.pomatay.p@gmail.com
-- **Teléfono:** +51 958 017 157
+- **Teléfono:** +51 902 809 193
 - **Ubicación:** Huancayo, Junín - Perú
 
 Para cambiar estos datos, busca y reemplaza en `index.html` y `send_email.php`.

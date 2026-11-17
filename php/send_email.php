@@ -212,13 +212,13 @@ if ($enviado) {
                 <p>Hola <strong>" . htmlspecialchars($nombre) . "</strong>,</p>
                 <p>Hemos recibido tu mensaje y nos pondremos en contacto contigo lo antes posible.</p>
                 <p>Nuestro equipo revisará tu consulta sobre <strong>" . htmlspecialchars($servicio_nombre) . "</strong> y te responderá a la brevedad.</p>
-                <p>Si tienes alguna pregunta urgente, no dudes en llamarnos al <strong>+51 958 017 157</strong>.</p>
+                <p>Si tienes alguna pregunta urgente, no dudes en llamarnos al <strong>+51 902 809 193</strong>.</p>
                 <br>
                 <p>Saludos cordiales,<br><strong>Equipo DYM SAC</strong></p>
                 <p style='margin-top: 20px; font-size: 12px; color: #666;'>
                     Huancayo, Junín - Perú<br>
                     angel.pomatay.p@gmail.com<br>
-                    +51 958 017 157
+                    +51 902 809 193
                 </p>
             </div>
         </div>

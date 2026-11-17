@@ -303,7 +303,7 @@ if ($enviado) {
             </p>
             <div class="contact-info">
                 <p><strong>Email:</strong> angel.pomatay.p@gmail.com</p>
-                <p><strong>Teléfono:</strong> +51 958 017 157</p>
+                <p><strong>Teléfono:</strong> +51 902 809 193</p>
                 <p><strong>Ubicación:</strong> Huancayo, Junín - Perú</p>
             </div>
             <a href="index.html#contacto" class="btn">Volver al Formulario</a>

@@ -98,7 +98,7 @@ Cambiar Datos de Contacto:
 ──────────────────────────
 Busca y reemplaza en index.html:
 - Email: angel.pomatay.p@gmail.com
-- Teléfono: +51 958 017 157
+- Teléfono: +51 902 809 193
 - Ubicación: Huancayo, Junín - Perú
 
 🎨 CARACTERÍSTICAS DEL SITIO:
@@ -173,7 +173,7 @@ El menú móvil no funciona:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Empresa:   DYM SAC
 Email:     angel.pomatay.p@gmail.com
-Teléfono:  +51 958 017 157
+Teléfono:  +51 902 809 193
 Ubicación: Huancayo, Junín - Perú
 Colores:   Azul corporativo (#0066cc)
 
